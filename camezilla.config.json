@@ -1,0 +1,35 @@
+{
+    "url": "http://repo/fashion-magazine/",
+    "base-directory": "repo/fashion-magazine/",
+    "log-file": "app.log",
+    "actions": "actions/",
+    "api": "api/",
+    "pages": "pages/",
+    "resources": "resources/",
+    "texts": {
+        "enabled": false
+    },
+    "autoload": {
+        "namespaces": {
+            "App\\": "app/",
+            "Camezilla\\": "camezilla/"
+        }
+    },
+    "database": {
+        "enabled": true,
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "name": "my_db",
+        "error-page": "error.php"
+    },
+    "authentication": {
+        "enabled": true,
+        "secret-key": "your-secret-key",
+        "login-page": "login.php"
+    },
+    "mail": {
+        "enabled": false,
+        "host": "host@example.com"
+    }
+}
