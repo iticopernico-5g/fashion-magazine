@@ -3,7 +3,7 @@
 namespace App\Models;
 
 enum Status: string {
-    case DRAFT = 'draft';
-    case PENDING = 'pending';
-    case APPROVED = 'approved';
+    case Draft = 'draft';
+    case Pending = 'pending';
+    case Approved = 'approved';
 }
