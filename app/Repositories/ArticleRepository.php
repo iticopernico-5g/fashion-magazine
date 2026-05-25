@@ -33,7 +33,6 @@ class ArticleRepository extends Repository{
                     Category::from($row['category']),
                     $row['link'],
                     $row['text'],
-                    PriorityLevel::from($row['priority_level']),
                     $row['author'],
                     new DateTime($row['date']),
                     Status::from($row['status'])
@@ -65,7 +64,6 @@ class ArticleRepository extends Repository{
                     Category::from($row['category']),
                     $row['link'],
                     $row['text'],
-                    PriorityLevel::from($row['priority_level']),
                     $row['author'],
                     new DateTime($row['date']),
                     Status::from($row['status'])
@@ -75,6 +73,99 @@ class ArticleRepository extends Repository{
             return null;    
         } catch (Exception $e) {
             throw new RepositoryErrorException("Error fetching article by ID: " . $e->getMessage());
+        }
+    }
+
+    public function get_recent(int $limit = 5): array {
+        try {
+            $query = $this->database->prepare(
+                "SELECT * FROM articles ORDER BY date DESC LIMIT :limit"
+            );
+            $query-> execute([
+                'limit' => $limit
+            ]);
+
+            $articles = [];
+            while (($row = $query->fetch()) !== false) {
+                $articles[] = new Article(
+                    $row['id'],
+                    $row['title'],
+                    $row['description'],
+                    $row['summary'],
+                    Category::from($row['category']),
+                    $row['link'],
+                    $row['text'],
+                    $row['author'],
+                    new DateTime($row['date']),
+                    Status::from($row['status'])
+                );
+            }
+
+            return $articles;
+        } catch (Exception $e) {
+            throw new RepositoryErrorException("Error fetching recent articles: " . $e->getMessage());
+        }
+    }
+
+    public function get_by_category(Category $category): array {
+        try {
+            $query = $this->database->prepare(
+                "SELECT * FROM articles WHERE category = :category"
+            );
+            $query->execute([
+                'category' => $category->value
+            ]);
+
+            $articles = [];
+            while (($row = $query->fetch()) !== false) {
+                $articles[] = new Article(
+                    $row['id'],
+                    $row['title'],
+                    $row['description'],
+                    $row['summary'],
+                    Category::from($row['category']),
+                    $row['link'],
+                    $row['text'],
+                    $row['author'],
+                    new DateTime($row['date']),
+                    Status::from($row['status'])
+                );
+            }
+
+            return $articles;
+        } catch (Exception $e) {
+            throw new RepositoryErrorException("Error fetching articles by category: " . $e->getMessage());
+        }
+    }
+
+    public function get_by_status(Status $status): array {
+        try {
+            $query = $this->database->prepare(
+                "SELECT * FROM articles WHERE status = :status"
+            );
+            $query->execute([
+                'status' => $status->value
+            ]);
+
+            $articles = [];
+            while (($row = $query->fetch()) !== false) {
+                $articles[] = new Article(
+                    $row['id'],
+                    $row['title'],
+                    $row['description'],
+                    $row['summary'],
+                    Category::from($row['category']),
+                    $row['link'],
+                    $row['text'],
+                    $row['author'],
+                    new DateTime($row['date']),
+                    Status::from($row['status'])
+                );
+            }
+
+            return $articles;
+        } catch (Exception $e) {
+            throw new RepositoryErrorException("Error fetching articles by status: " . $e->getMessage());
         }
     }
 
@@ -91,7 +182,6 @@ class ArticleRepository extends Repository{
                 'category' => $article->get_category()->value,
                 'link' => $article->get_link(),
                 'text' => $article->get_text(),
-                'priority_level' => $article->get_priority_level()->value,
                 'author' => $article->get_author(),
                 'date' => $article->get_date()->format('Y-m-d H:i:s'),
                 'status' => $article->get_status()->value
@@ -115,7 +205,6 @@ class ArticleRepository extends Repository{
                 'category' => $article->get_category()->value,
                 'link' => $article->get_link(),
                 'text' => $article->get_text(),
-                'priority_level' => $article->get_priority_level()->value,
                 'status' => $article->get_status()->value,
                 'author' => $article->get_author(),
                 'date' => $article->get_date()->format('Y-m-d H:i:s')

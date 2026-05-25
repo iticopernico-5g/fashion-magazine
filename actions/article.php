@@ -12,7 +12,9 @@ $dispatcher = new Dispatcher(page('not-found.php'), page('error.php'));
 $articleService = new ArticleService();
 
 $dispatcher->post('create', function($params) use ($articleService) {
-    $article = new Article(null, $params['title'], $params['description'], $params['summary'], Category::from($params['category']), $params['link'], $params['text'], PriorityLevel::from($params['priority_level']), $params['author'], $params['date'], Status::from($params['status']));
+    require_user_authentication();
+
+    $article = new Article(null, $params['title'], $params['description'], $params['summary'], Category::from($params['category']), $params['link'], $params['text'], $params['author'], $params['date'], Status::from($params['status']));
     
     try {
         $articleService->create($article);
@@ -23,7 +25,9 @@ $dispatcher->post('create', function($params) use ($articleService) {
 });
 
 $dispatcher->post('update', function($params) use ($articleService) {
-    $article = new Article($params['id'], $params['title'], $params['description'], $params['summary'], Category::from($params['category']), $params['link'], $params['text'], PriorityLevel::from($params['priority_level']), $params['author'], $params['date'], Status::from($params['status']));
+    require_user_authentication();
+
+    $article = new Article($params['id'], $params['title'], $params['description'], $params['summary'], Category::from($params['category']), $params['link'], $params['text'], $params['author'], $params['date'], Status::from($params['status']));
     
     try {
         $articleService->update($article);
@@ -34,7 +38,8 @@ $dispatcher->post('update', function($params) use ($articleService) {
 });
 
 $dispatcher->post('delete', function($params) use ($articleService) {
-    $article = new Article($params['id'], null, null, null, null, null, null, null, null, null, null);
+    require_user_authentication();
+    $article = new Article($params['id'], null, null, null, null, null, null, null, null, null);
 
     try {
         $articleService->delete($article);

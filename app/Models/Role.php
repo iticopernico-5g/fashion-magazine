@@ -3,7 +3,7 @@
 namespace App\Models;
 
 enum Role: string {
-    case ADMIN = 'admin';
-    case STUDENT = 'student';
-    case VIEWER = 'viewer';
+    case Admin = 'admin';
+    case Student = 'student';
+    case Viewer = 'viewer';
 }

@@ -12,13 +12,12 @@ class Article {
     private ?Category $category;
     private ?string $link;
     private ?string $text;
-    private ?PriorityLevel $priority_level;
     private ?string $author;
     private ?DateTime $date;
     private ?Status $status;
     
 
-    public function __construct(?int $id, ?string $title, ?string $description, ?string $summary, ?Category $category, ?string $link, ?string $text, ?PriorityLevel $priority_level, ?string $author, ?DateTime $date, ?Status $status) {
+    public function __construct(?int $id, ?string $title, ?string $description, ?string $summary, ?Category $category, ?string $link, ?string $text, ?string $author, ?DateTime $date, ?Status $status) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
@@ -26,7 +25,6 @@ class Article {
         $this->category = $category;
         $this->link = $link;
         $this->text = $text;
-        $this->priority_level = $priority_level;
         $this->author = $author;
         $this->date = $date;
         $this->status = $status;
@@ -60,10 +58,6 @@ class Article {
     public function get_text(): ?string {
         return $this->text;
     }
-
-    public function get_priority_level(): ?PriorityLevel {
-        return $this->priority_level;
-    }   
 
     public function get_author(): ?string {
         return $this->author;

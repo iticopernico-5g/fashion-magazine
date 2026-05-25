@@ -3,6 +3,7 @@ require_once __DIR__ . '/../camezilla/camezilla.php';
 
 use App\Components\ArticleGroup;
 use App\Layouts\MainLayout;
+use App\Models\Category;
 use App\Services\ArticleService;
 use Camezilla\Pages\Page;
 
@@ -11,11 +12,11 @@ $page = new class extends Page {
     public function __construct() {
         
         $articleService = new ArticleService();
-        $recentArticles = $articleService->get_recent();
+        $articles = $articleService->get_by_category(Category::Sport);
 
-        parent::__construct(new MainLayout("Home"), function () use ($recentArticles) { ?>
+        parent::__construct(new MainLayout("Sport"), function () use ($articles) { ?>
 
-            <?= new ArticleGroup($recentArticles) ?>
+            <?= new ArticleGroup($articles) ?>
 
         <?php });
     }

@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\PriorityLevel;
 use App\Models\Status;
 use App\Repositories\ArticleRepository;
 use App\Utils\StringUtils;
@@ -34,6 +33,30 @@ class ArticleService extends Service {
             return $this->articleRepository->get_by_id($id);
         } catch (Exception $e) {
             throw new ServiceErrorException(t("service.article.error.get_by_id"));
+        }
+    }
+
+    public function get_recent(int $limit = 5): array {
+        try {
+            return $this->articleRepository->get_recent($limit);
+        } catch (Exception $e) {
+            throw new ServiceErrorException(t("service.article.error.get_recent"));
+        }
+    }
+
+    public function get_by_category(Category $category): array {
+        try {
+            return $this->articleRepository->get_by_category($category);
+        } catch (Exception $e) {
+            throw new ServiceErrorException(t("service.article.error.get_by_category"));
+        }
+    }
+
+    public function get_by_status(Status $status): array {
+        try {
+            return $this->articleRepository->get_by_status($status);
+        } catch (Exception $e) {
+            throw new ServiceErrorException(t("service.article.error.get_by_status"));
         }
     }
 
@@ -74,6 +97,9 @@ class ArticleService extends Service {
     }
 
     public function validate_article(Article $article){
+        if ($article->get_title() === null || !StringUtils::is_valid_text($article->get_title(), 255)) {
+            throw new InvalidArgumentException(t("validation.article.error.title"));
+        }
         if ($article->get_description() !== null && !StringUtils::is_valid_text($article->get_description(), 500)) {
             throw new InvalidArgumentException(t("validation.article.error.description"));
         }
@@ -85,9 +111,6 @@ class ArticleService extends Service {
         }
         if ($article->get_text() !== null && !StringUtils::is_valid_text($article->get_text(), 65535)) {
             throw new InvalidArgumentException(t("validation.article.error.text"));
-        }
-        if ($article->get_priority_level() === null || !PriorityLevel::tryFrom($article->get_priority_level()->value)) {
-            throw new InvalidArgumentException(t("validation.article.error.priority_level"));
         }
         if ($article->get_author() === null || !StringUtils::is_valid_text($article->get_author(), 255)) {
             throw new InvalidArgumentException(t("validation.article.error.author"));

@@ -1,11 +1,11 @@
 <?php 
 
-namespace App\Components;
+namespace App\Components;   
 
 use Camezilla\Components\Component;
 use App\Models\Article;
 
-class ArticleItem extends Component {
+class ArticleDetails extends Component {
 
     private Article $article;
 
@@ -16,7 +16,7 @@ class ArticleItem extends Component {
 
     protected function build(): void { ?>
         <div>
-            Articolo
+            Dettagli Articolo
         </div>
     <?php }
 }
