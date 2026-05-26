@@ -1,5 +1,5 @@
 {
-    "url": "http://repo/fashion-magazine/",
+    "url": "http://localhost/repo/fashion-magazine/",
     "base-directory": "repo/fashion-magazine/",
     "log-file": "app.log",
     "actions": "actions/",
@@ -7,7 +7,9 @@
     "pages": "pages/",
     "resources": "resources/",
     "texts": {
-        "enabled": false
+        "enabled": true,
+        "path": "resources/texts.json",
+        "default-language": "it"
     },
     "autoload": {
         "namespaces": {
@@ -20,7 +22,7 @@
         "host": "localhost",
         "user": "root",
         "password": "",
-        "name": "my_db",
+        "name": "fashion_magazine",
         "error-page": "error.php"
     },
     "authentication": {

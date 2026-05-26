@@ -2,6 +2,8 @@
 
 namespace Camezilla\Dispatchers;
 
+use Exception;
+
 class Endpoint {
 
     public string $method;
@@ -52,7 +54,8 @@ class Dispatcher {
             if ($endpoint->method === $method && $endpoint->path === $path) {
                 try {
                     ($endpoint->action)($params);
-                } catch (\Exception $e) {
+                    return;
+                } catch (Exception $e) {
                     $this->internal_server_error();
                 }
             }
@@ -88,7 +91,7 @@ class Dispatcher {
         }
     }
 
-    private function get_params($method) {
+    private function get_params(string $method) {
         switch ($method) {
             case 'GET':
                 return $_GET;

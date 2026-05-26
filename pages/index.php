@@ -10,12 +10,12 @@ $page = new class extends Page {
 
     public function __construct() {
         
-        $articleService = new ArticleService();
-        $recentArticles = $articleService->get_recent();
+        // $articleService = new ArticleService();
+        // $recentArticles = $articleService->get_recent();
 
-        parent::__construct(new MainLayout("Home"), function () use ($recentArticles) { ?>
+        parent::__construct(new MainLayout("Home"), function () { ?>
 
-            <?= new ArticleGroup($recentArticles) ?>
+            home
 
         <?php });
     }
