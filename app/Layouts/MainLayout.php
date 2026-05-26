@@ -3,6 +3,8 @@
 namespace App\Layouts;
 
 use App\Components\Navbar;
+use App\Components\Login;
+use App\Components\Footer;
 use Camezilla\Layouts\Layout;
 
 class MainLayout extends Layout {
@@ -25,11 +27,15 @@ class MainLayout extends Layout {
             </head>
             <body class="body">
 
+                
+
                 <?= new Navbar() ?>
 
                 <main class="main">
                     <?php $this->render_content(); ?>
                 </main>
+
+                <?= new Footer() ?>  
 
             </body>
         </html>
