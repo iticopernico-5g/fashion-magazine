@@ -11,6 +11,12 @@ class FrontLoginModal extends Component {
             <div class="modal-content">
                 <button class="close-modal" id="closeModalBtn">&times;</button>
 
+                <!-- TAB BUTTONS -->
+                <div class="modal-tabs">
+                    <button class="modal-tab-btn active" data-tab="login">Accedi</button>
+                    <button class="modal-tab-btn" data-tab="register">Registrati</button>
+                </div>
+
                 <!-- TAB LOGIN -->
                 <div class="modal-tab-content active" id="login-tab">
                     <h2 class="modal-title">Accedi</h2>

@@ -44,6 +44,7 @@ class MainLayout extends Layout
 
             <?= new Footer() ?>
 
+            <script>window.BASE_URL = '<?= rtrim(get_absolute_url(''), '/') ?>';</script>
             <script src="<?= resource('js/front.js') ?>"></script>
         </body>
 

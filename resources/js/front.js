@@ -94,7 +94,7 @@ if (loginForm) {
     }
 
     try {
-      const response = await fetch('actions/account.php?path=login', {
+      const response = await fetch(window.BASE_URL + '/actions/account.php?path=login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -154,7 +154,7 @@ if (registerForm) {
     }
 
     try {
-      const response = await fetch('actions/account.php?path=register', {
+      const response = await fetch(window.BASE_URL + '/actions/account.php?path=register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
