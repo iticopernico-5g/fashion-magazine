@@ -24,8 +24,8 @@
 }
 
 .modal-tab-btn.active {
-    color: #3498db;
-    border-bottom-color: #3498db;
+    color: #e8c946;
+    border-bottom-color: #e8c946;
 }
 
 .modal-tab-content {
@@ -173,7 +173,7 @@
 
 .form-group input:focus {
     outline: none;
-    border-color: #3498db;
+    border-color: #e8c946;
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
