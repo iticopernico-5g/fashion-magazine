@@ -56,7 +56,6 @@ function authenticate_user(int $user_id, string $email): void {
     require_authentication_enabled();
 
     start_session();
-    session_regenerate_id(true);
 
     add_session_item('authentication.user-id', $user_id);
     add_session_item('authentication.email', $email);
