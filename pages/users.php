@@ -144,7 +144,7 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
         </div>
 
         <!-- Modal: Nuovo Articolo -->
-        <div id="modal-nuovo" class="modal-overlay" style="display:none">
+        <div id="modal-nuovo" class="art-modal-overlay" style="display:none">
             <div class="modal-box">
                 <h2>Nuovo Articolo</h2>
                 <form method="POST" action="<?= action('article.php', 'create', 'users.php') ?>">
@@ -159,7 +159,7 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
         </div>
 
         <!-- Modal: Modifica Articolo -->
-        <div id="modal-modifica" class="modal-overlay" style="display:none">
+        <div id="modal-modifica" class="art-modal-overlay" style="display:none">
             <div class="modal-box">
                 <h2>Modifica Articolo</h2>
                 <form method="POST" action="<?= action('article.php', 'update', 'users.php') ?>">
@@ -201,7 +201,7 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
         }
 
         // Chiudi modal cliccando fuori
-        document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+        document.querySelectorAll('.art-modal-overlay').forEach(function(overlay) {
             overlay.addEventListener('click', function(e) {
                 if (e.target === overlay) overlay.style.display = 'none';
             });
@@ -249,7 +249,7 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
         .btn-delete { background: #dc2626; color: #fff; border: none; padding: .35rem .9rem; border-radius: 6px; cursor: pointer; font-size: .85rem; }
         .btn-delete:hover { background: #b91c1c; }
 
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .art-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
         .modal-box { background: #fff; border-radius: 10px; padding: 2rem; width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,.2); }
         .modal-box h2 { margin: 0 0 1.5rem; font-size: 1.3rem; }
         .modal-actions { display: flex; gap: .75rem; justify-content: flex-end; margin-top: 1.5rem; }
