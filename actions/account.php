@@ -61,10 +61,8 @@ $dispatcher->post('login', function($params) use ($authenticationService, $isAja
         // Determina la pagina di redirect
         $redirect = page('index.php'); // default
 
-        if ($role === 'admin') {
+        if ($role === 'admin' || $role === 'student') {
             $redirect = page('users.php');
-        } elseif ($role === 'student') {
-            $redirect = page('gestione_articoli.php');
         }
         
         // Se è AJAX (richiesta fetch da JavaScript), ritorna JSON

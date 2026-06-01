@@ -3,7 +3,7 @@
 namespace App\Components;
 
 use Camezilla\Components\Component;
-use App\Models\UserItem;
+use App\Components\UserItem;
 
 class UserGroup extends Component {
 
