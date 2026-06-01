@@ -118,13 +118,9 @@ if (loginForm) {
           document.body.style.overflow = '';
         }, 1000);
 
-        // Admin/student: apri pannello in nuova tab, index rimane aperta
-        // Viewer: ricarica solo l'header per mostrare "Esci"
+        // Reindirizza nella stessa tab (sessione garantita)
         setTimeout(() => {
-          if (data.role === 'admin' || data.role === 'student') {
-            window.open(data.redirect, '_blank');
-          }
-          window.location.reload();
+          window.location.href = data.redirect;
         }, 1500);
       } else {
         // Login fallito

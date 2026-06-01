@@ -14,6 +14,13 @@ body {
     background: #fff;
     line-height: 1.7;
     font-size: 17px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
 }
 
 /* --- TIPOGRAFIA --- */
