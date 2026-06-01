@@ -25,6 +25,15 @@ class UserItem extends Component {
                     <?= htmlspecialchars($this->user?->get_role()?->value ?? '') ?>
                 </span>
             </td>
+            <td>
+                <button class="btn-edit" onclick="openUserModal(
+                    <?= $this->user?->get_id() ?>,
+                    <?= htmlspecialchars(json_encode($this->user?->get_first_name()), ENT_QUOTES) ?>,
+                    <?= htmlspecialchars(json_encode($this->user?->get_last_name()), ENT_QUOTES) ?>,
+                    <?= htmlspecialchars(json_encode($this->user?->get_email()), ENT_QUOTES) ?>,
+                    <?= htmlspecialchars(json_encode($this->user?->get_role()?->value), ENT_QUOTES) ?>
+                )">Modifica</button>
+            </td>
         </tr>
     <?php }
 }

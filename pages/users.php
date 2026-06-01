@@ -158,6 +158,40 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
             </div>
         </div>
 
+        <!-- Modal: Modifica Ruolo Utente -->
+        <div id="modal-utente" class="art-modal-overlay" style="display:none">
+            <div class="modal-box">
+                <h2>Modifica Ruolo Utente</h2>
+                <form method="POST" action="<?= action('account.php', 'update', 'users.php') ?>">
+                    <input type="hidden" name="id" id="user-edit-id">
+                    <input type="hidden" name="first_name" id="user-edit-first-name">
+                    <input type="hidden" name="last_name" id="user-edit-last-name">
+                    <input type="hidden" name="email" id="user-edit-email">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" id="user-edit-name-display" disabled style="background:#f5f5f5;color:#666">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" id="user-edit-email-display" disabled style="background:#f5f5f5;color:#666">
+                    </div>
+                    <div class="form-group">
+                        <label>Ruolo *</label>
+                        <select name="role" id="user-edit-role" required>
+                            <option value="admin">Admin</option>
+                            <option value="student">Student</option>
+                            <option value="viewer">Viewer</option>
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn-primary">Salva</button>
+                        <button type="button" class="btn-secondary"
+                            onclick="document.getElementById('modal-utente').style.display='none'">Annulla</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <!-- Modal: Modifica Articolo -->
         <div id="modal-modifica" class="art-modal-overlay" style="display:none">
             <div class="modal-box">
@@ -185,7 +219,19 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
             });
         });
 
-        // Apri modal modifica
+        // Apri modal modifica utente
+        function openUserModal(id, firstName, lastName, email, role) {
+            document.getElementById('user-edit-id').value = id;
+            document.getElementById('user-edit-first-name').value = firstName ?? '';
+            document.getElementById('user-edit-last-name').value = lastName ?? '';
+            document.getElementById('user-edit-email').value = email ?? '';
+            document.getElementById('user-edit-name-display').value = (firstName ?? '') + ' ' + (lastName ?? '');
+            document.getElementById('user-edit-email-display').value = email ?? '';
+            document.getElementById('user-edit-role').value = role ?? 'viewer';
+            document.getElementById('modal-utente').style.display = 'flex';
+        }
+
+        // Apri modal modifica articolo
         function openEditModal(id, title, description, summary, category, link, text, author, date, status) {
             document.getElementById('edit-id').value = id;
             document.getElementById('edit-title').value = title ?? '';

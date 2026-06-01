@@ -23,6 +23,7 @@ class UserGroup extends Component {
                     <th>Cognome</th>
                     <th>Email</th>
                     <th>Ruolo</th>
+                    <th>Azioni</th>
                 </tr>
             </thead>
             <tbody>
