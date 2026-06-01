@@ -88,6 +88,17 @@ h1, h2, h3, .logo {
     background: #333;
 }
 
+.login-header-btn--outline {
+    background: transparent;
+    color: #111;
+    border: 1px solid #111;
+}
+
+.login-header-btn--outline:hover {
+    background: #111;
+    color: #fff;
+}
+
 /* --- HERO --- */
 .hero {
     text-align: center;
