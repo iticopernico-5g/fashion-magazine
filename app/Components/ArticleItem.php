@@ -42,7 +42,7 @@ class ArticleItem extends Component
                     <?= htmlspecialchars($this->article->get_description() ?: $this->article->get_summary() ?: '') ?>
                 </p>
 
-                <a href="#" class="read-more-btn">Continua a leggere</a>
+                <a href="<?= page('article.php', ['id' => $this->article->get_id()]) ?>" class="read-more-btn">Continua a leggere</a>
             </div>
         </article>
 <?php }
