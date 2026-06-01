@@ -12,7 +12,11 @@ class FrontHeader extends Component {
                 <button class="mobile-menu-btn" type="button">☰</button>
                 <div class="logo">I T I</div>
                 <div class="header-actions">
-                    <button class="login-header-btn" type="button">ACCEDI</button>
+                    <?php if (is_user_authenticated()): ?>
+                        <a href="<?= action('account.php', 'logout', 'index.php') ?>" class="login-header-btn">ESCI</a>
+                    <?php else: ?>
+                        <button class="login-header-btn" type="button">ACCEDI</button>
+                    <?php endif; ?>
                 </div>
             </div>
         </header>

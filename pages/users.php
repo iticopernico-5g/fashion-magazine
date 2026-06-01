@@ -10,8 +10,12 @@ use App\Services\UserService;
 use Camezilla\Pages\Page;
 
 // Solo admin e student possono accedere
+if (!is_user_authenticated()) {
+    redirect_to_login_page();
+}
+
 $role = get_session_item('authentication.role');
-if (!$role || !in_array($role, ['admin', 'student'], true)) {
+if (!in_array($role, ['admin', 'student'], true)) {
     header("Location: " . page('index.php'));
     exit();
 }
