@@ -118,13 +118,9 @@ if (loginForm) {
           document.body.style.overflow = '';
         }, 1000);
 
-        // Apri nuova tab se admin/student, altrimenti reload
+        // Reindirizza alla pagina corretta in base al ruolo
         setTimeout(() => {
-          if (data.role === 'admin' || data.role === 'student') {
-            window.open(data.redirect, '_blank');
-          }
-          // Reload la pagina attuale (rimane aperta)
-          window.location.reload();
+          window.location.href = data.redirect;
         }, 1500);
       } else {
         // Login fallito
