@@ -11,16 +11,13 @@ use Camezilla\Exceptions\RepositoryErrorException;
 use Exception;
 use DateTime;
 
-class ArticleRepository extends Repository
-{
+class ArticleRepository extends Repository{
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
     }
 
-    public function get_all(): array
-    {
+    public function get_all(): array {
         try {
             $query = $this->database->query(
                 "SELECT * FROM articles"
@@ -32,7 +29,7 @@ class ArticleRepository extends Repository
                     $row['id'],
                     $row['title'],
                     $row['description'],
-                    $row['summary'],
+                    $row['summary'],    
                     Category::from($row['category']),
                     $row['link'],
                     $row['text'],
@@ -47,9 +44,8 @@ class ArticleRepository extends Repository
             throw new RepositoryErrorException("Error fetching articles: " . $e->getMessage());
         }
     }
-
-    public function get_by_id(int $id): ?Article
-    {
+    
+    public function get_by_id(int $id): ?Article {
         try {
             $query = $this->database->prepare(
                 "SELECT * FROM articles WHERE id = :id"
@@ -72,22 +68,30 @@ class ArticleRepository extends Repository
                     new DateTime($row['date']),
                     Status::from($row['status'])
                 );
-            }
-
-            return null;
+            } 
+    
+            return null;    
         } catch (Exception $e) {
             throw new RepositoryErrorException("Error fetching article by ID: " . $e->getMessage());
         }
     }
 
-    public function get_recent(int $limit = 5): array
-    {
+    /**
+     * Ritorna SOLO articoli approvati, ordinati per data desc.
+     */
+    public function get_recent(int $limit = 5): array {
         try {
-            $limit = max(1, (int)$limit);
-
-            $query = $this->database->query(
-                "SELECT * FROM articles ORDER BY date DESC LIMIT $limit"
+            $query = $this->database->prepare(
+                "SELECT * FROM articles 
+                 WHERE status = :status
+                 ORDER BY date DESC 
+                 LIMIT :limit"
             );
+
+            // Nota: LIMIT con parametro può richiedere bindValue come INT (dipende dal driver PDO)
+            $query->bindValue(':status', Status::Approved->value);
+            $query->bindValue(':limit', (int)$limit, \PDO::PARAM_INT);
+            $query->execute();
 
             $articles = [];
             while (($row = $query->fetch()) !== false) {
@@ -111,14 +115,20 @@ class ArticleRepository extends Repository
         }
     }
 
-    public function get_by_category(Category $category): array
-    {
+    /**
+     * Ritorna SOLO articoli approvati di una categoria, ordinati per data desc.
+     */
+    public function get_by_category(Category $category): array {
         try {
             $query = $this->database->prepare(
-                "SELECT * FROM articles WHERE category = :category"
+                "SELECT * FROM articles 
+                 WHERE category = :category
+                   AND status = :status
+                 ORDER BY date DESC"
             );
             $query->execute([
-                'category' => $category->value
+                'category' => $category->value,
+                'status' => Status::Approved->value
             ]);
 
             $articles = [];
@@ -143,8 +153,7 @@ class ArticleRepository extends Repository
         }
     }
 
-    public function get_by_status(Status $status): array
-    {
+    public function get_by_status(Status $status): array {
         try {
             $query = $this->database->prepare(
                 "SELECT * FROM articles WHERE status = :status"
@@ -175,8 +184,7 @@ class ArticleRepository extends Repository
         }
     }
 
-    public function create(Article $article): void
-    {
+    public function create(Article $article): void {
         try {
             $query = $this->database->prepare(
                 "INSERT INTO articles (title, description, summary, category, link, text, priority_level, status, author, date) 
@@ -189,23 +197,33 @@ class ArticleRepository extends Repository
                 'category' => $article->get_category()->value,
                 'link' => $article->get_link(),
                 'text' => $article->get_text(),
+                // Se la tua entity Article ha priority_level, qui dovresti passarlo.
+                // Altrimenti questa riga va adattata o la colonna rimossa dalla query.
+                'priority_level' => method_exists($article, 'get_priority_level') && $article->get_priority_level() !== null
+                    ? $article->get_priority_level()->value
+                    : null,
+                'status' => $article->get_status()->value,
                 'author' => $article->get_author(),
                 'date' => $article->get_date()->format('Y-m-d H:i:s'),
-                'status' => $article->get_status()->value
             ]);
         } catch (Exception $e) {
             throw new RepositoryErrorException("Error creating article: " . $e->getMessage());
         }
     }
 
-    public function update(Article $article): void
-    {
+    public function update(Article $article): void {
         try {
             $query = $this->database->prepare(
                 "UPDATE articles
-                SET title = :title, description = :description, summary = :summary, category = :category, link = :link, text = :text, priority_level = :priority_level, author = :author, date = :date, status = :status
+                SET title = :title, description = :description, summary = :summary, category = :category, link = :link, text = :text, priority_level = :priority_level, status = :status, author = :author, date = :date
                 WHERE id = :id"
             );
+
+            $priorityLevel = null;
+            if (method_exists($article, 'get_priority_level') && $article->get_priority_level() !== null) {
+                $priorityLevel = $article->get_priority_level()->value;
+            }
+
             $query->execute([
                 'id' => $article->get_id(),
                 'title' => $article->get_title(),
@@ -214,6 +232,7 @@ class ArticleRepository extends Repository
                 'category' => $article->get_category()->value,
                 'link' => $article->get_link(),
                 'text' => $article->get_text(),
+                'priority_level' => $priorityLevel,
                 'status' => $article->get_status()->value,
                 'author' => $article->get_author(),
                 'date' => $article->get_date()->format('Y-m-d H:i:s')
@@ -223,8 +242,7 @@ class ArticleRepository extends Repository
         }
     }
 
-    public function delete_by_id(int $id): void
-    {
+    public function delete_by_id(int $id): void {
         try {
             $query = $this->database->prepare(
                 "DELETE FROM articles 

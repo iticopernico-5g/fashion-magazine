@@ -1,0 +1,227 @@
+/* ===== MODAL TAB SWITCHER ===== */
+.modal-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.modal-tab-btn {
+    flex: 1;
+    padding: 12px 0;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: #999;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-tab-btn:hover {
+    color: #333;
+}
+
+.modal-tab-btn.active {
+    color: #3498db;
+    border-bottom-color: #3498db;
+}
+
+.modal-tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-tab-content.active {
+    display: block;
+    opacity: 1;
+}
+
+/* ===== POPUP ===== */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.popup.active {
+    opacity: 1;
+}
+
+.popup-content {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    animation: popupSlideIn 0.3s ease;
+}
+
+@keyframes popupSlideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.popup-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.popup-success .popup-icon {
+    color: #2ecc71;
+}
+
+.popup-error .popup-icon {
+    color: #e74c3c;
+}
+
+.popup-info .popup-icon {
+    color: #3498db;
+}
+
+.popup-title {
+    font-size: 20px;
+    color: #333;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.popup-message {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 25px 0;
+    line-height: 1.5;
+}
+
+.popup-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-btn:hover {
+    background-color: #2980b9;
+}
+
+.popup-success .popup-btn {
+    background-color: #2ecc71;
+}
+
+.popup-success .popup-btn:hover {
+    background-color: #27ae60;
+}
+
+.popup-error .popup-btn {
+    background-color: #e74c3c;
+}
+
+.popup-error .popup-btn:hover {
+    background-color: #c0392b;
+}
+
+/* ===== AUTH FORM STYLE ===== */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.error-message {
+    display: block;
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* ===== ANIMAZIONE MODAL APERTURA ===== */
+.modal-overlay {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .popup-content {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+
+    .modal-tab-btn {
+        font-size: 14px;
+        padding: 10px 0;
+    }
+}

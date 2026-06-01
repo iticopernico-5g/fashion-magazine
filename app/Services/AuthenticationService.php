@@ -32,6 +32,10 @@ class AuthenticationService extends Service {
             }
 
             authenticate_user($existing_user->get_id(), $existing_user->get_email());
+            
+            // 🔐 NUOVO: Salva il ruolo in sessione (admin/student/viewer)
+            add_session_item('authentication.role', $existing_user->get_role()->value);
+            
         } catch (Exception $e) {
             if ($e instanceof ServiceErrorException) {
                 throw $e;
@@ -53,6 +57,10 @@ class AuthenticationService extends Service {
             }
 
             authenticate_user($created_user->get_id(), $created_user->get_email());
+            
+            // 🔐 NUOVO: Salva il ruolo in sessione (di default è viewer per i nuovi utenti)
+            add_session_item('authentication.role', $created_user->get_role()->value);
+            
         } catch (Exception $e) {
             if ($e instanceof ServiceErrorException) {
                 throw $e;
