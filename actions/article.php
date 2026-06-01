@@ -3,8 +3,8 @@ require_once __DIR__ . '/../camezilla/camezilla.php';
 
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\PriorityLevel;
 use App\Models\Status;
+use DateTime;
 use App\Services\ArticleService;
 use Camezilla\Dispatchers\Dispatcher;
 
@@ -14,7 +14,7 @@ $articleService = new ArticleService();
 $dispatcher->post('create', function($params) use ($articleService) {
     require_user_authentication();
 
-    $article = new Article(null, $params['title'], $params['description'], $params['summary'], Category::from($params['category']), $params['link'], $params['text'], $params['author'], $params['date'], Status::from($params['status']));
+    $article = new Article(null, $params['title'], $params['description'], $params['summary'], Category::from($params['category']), $params['link'], $params['text'], $params['author'], new DateTime($params['date']), Status::from($params['status']));
     
     try {
         $articleService->create($article);
@@ -27,7 +27,7 @@ $dispatcher->post('create', function($params) use ($articleService) {
 $dispatcher->post('update', function($params) use ($articleService) {
     require_user_authentication();
 
-    $article = new Article($params['id'], $params['title'], $params['description'], $params['summary'], Category::from($params['category']), $params['link'], $params['text'], $params['author'], $params['date'], Status::from($params['status']));
+    $article = new Article($params['id'], $params['title'], $params['description'], $params['summary'], Category::from($params['category']), $params['link'], $params['text'], $params['author'], new DateTime($params['date']), Status::from($params['status']));
     
     try {
         $articleService->update($article);

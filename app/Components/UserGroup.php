@@ -15,22 +15,25 @@ class UserGroup extends Component {
     }
 
     protected function build(): void { ?>
-        <div>
-            Gruppo Utenti
-            
-            <?php if (empty($this->users)): ?>
-
-                <p>Nessun utente trovato.</p>
-
-            <?php else: ?>
-
-                <?php foreach ($this->users as $user): ?>
-
-                    <?= new UserItem($user) ?>
-
-                <?php endforeach; ?>
-
-            <?php endif; ?>
-        </div>
+        <table class="articles-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Email</th>
+                    <th>Ruolo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($this->users)): ?>
+                    <tr><td colspan="5" class="empty-row">Nessun utente trovato.</td></tr>
+                <?php else: ?>
+                    <?php foreach ($this->users as $user): ?>
+                        <?= new UserItem($user) ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
     <?php }
 }
