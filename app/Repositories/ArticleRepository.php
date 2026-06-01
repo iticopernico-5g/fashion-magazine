@@ -187,8 +187,8 @@ class ArticleRepository extends Repository{
     public function create(Article $article): void {
         try {
             $query = $this->database->prepare(
-                "INSERT INTO articles (title, description, summary, category, link, text, priority_level, status, author, date) 
-                VALUES (:title, :description, :summary, :category, :link, :text, :priority_level, :status, :author, :date)"
+                "INSERT INTO articles (title, description, summary, category, link, text, status, author, date)
+                VALUES (:title, :description, :summary, :category, :link, :text, :status, :author, :date)"
             );
             $query->execute([
                 'title' => $article->get_title(),
@@ -197,14 +197,9 @@ class ArticleRepository extends Repository{
                 'category' => $article->get_category()->value,
                 'link' => $article->get_link(),
                 'text' => $article->get_text(),
-                // Se la tua entity Article ha priority_level, qui dovresti passarlo.
-                // Altrimenti questa riga va adattata o la colonna rimossa dalla query.
-                'priority_level' => method_exists($article, 'get_priority_level') && $article->get_priority_level() !== null
-                    ? $article->get_priority_level()->value
-                    : null,
                 'status' => $article->get_status()->value,
                 'author' => $article->get_author(),
-                'date' => $article->get_date()->format('Y-m-d H:i:s'),
+                'date' => $article->get_date()->format('Y-m-d'),
             ]);
         } catch (Exception $e) {
             throw new RepositoryErrorException("Error creating article: " . $e->getMessage());
@@ -215,15 +210,9 @@ class ArticleRepository extends Repository{
         try {
             $query = $this->database->prepare(
                 "UPDATE articles
-                SET title = :title, description = :description, summary = :summary, category = :category, link = :link, text = :text, priority_level = :priority_level, status = :status, author = :author, date = :date
+                SET title = :title, description = :description, summary = :summary, category = :category, link = :link, text = :text, status = :status, author = :author, date = :date
                 WHERE id = :id"
             );
-
-            $priorityLevel = null;
-            if (method_exists($article, 'get_priority_level') && $article->get_priority_level() !== null) {
-                $priorityLevel = $article->get_priority_level()->value;
-            }
-
             $query->execute([
                 'id' => $article->get_id(),
                 'title' => $article->get_title(),
@@ -232,10 +221,9 @@ class ArticleRepository extends Repository{
                 'category' => $article->get_category()->value,
                 'link' => $article->get_link(),
                 'text' => $article->get_text(),
-                'priority_level' => $priorityLevel,
                 'status' => $article->get_status()->value,
                 'author' => $article->get_author(),
-                'date' => $article->get_date()->format('Y-m-d H:i:s')
+                'date' => $article->get_date()->format('Y-m-d')
             ]);
         } catch (Exception $e) {
             throw new RepositoryErrorException("Error updating article: " . $e->getMessage());
