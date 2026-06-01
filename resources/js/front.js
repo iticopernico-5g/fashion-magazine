@@ -1,3 +1,11 @@
+// ===== CARD ARTICOLO CLICCABILE =====
+document.addEventListener('click', function(e) {
+    const card = e.target.closest('.news-card[data-url]');
+    if (!card) return;
+    if (e.target.closest('button') || e.target.closest('.read-more-btn') || e.target.closest('.collapse-btn')) return;
+    window.location.href = card.dataset.url;
+});
+
 // ===== GESTIONE MODALE =====
 const loginBtn = document.querySelector('.login-header-btn');
 const modal = document.getElementById('loginModal');
