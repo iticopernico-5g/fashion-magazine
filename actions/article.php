@@ -14,7 +14,18 @@ $articleService = new ArticleService();
 $dispatcher->post('create', function($params) use ($articleService) {
     require_user_authentication();
 
-    $article = new Article(null, $params['title'], $params['description'], $params['summary'], Category::from($params['category']), $params['link'], $params['text'], $params['author'], new DateTime($params['date']), Status::from($params['status']));
+    $article = new Article(
+        null,
+        $params['title'] ?: null,
+        $params['description'] ?: null,
+        $params['summary'] ?: null,
+        Category::from($params['category']),
+        $params['link'] ?: null,
+        $params['text'] ?: null,
+        $params['author'] ?: null,
+        new DateTime($params['date']),
+        Status::from($params['status'])
+    );
     
     try {
         $articleService->create($article);
@@ -27,7 +38,18 @@ $dispatcher->post('create', function($params) use ($articleService) {
 $dispatcher->post('update', function($params) use ($articleService) {
     require_user_authentication();
 
-    $article = new Article($params['id'], $params['title'], $params['description'], $params['summary'], Category::from($params['category']), $params['link'], $params['text'], $params['author'], new DateTime($params['date']), Status::from($params['status']));
+    $article = new Article(
+        $params['id'],
+        $params['title'] ?: null,
+        $params['description'] ?: null,
+        $params['summary'] ?: null,
+        Category::from($params['category']),
+        $params['link'] ?: null,
+        $params['text'] ?: null,
+        $params['author'] ?: null,
+        new DateTime($params['date']),
+        Status::from($params['status'])
+    );
     
     try {
         $articleService->update($article);
