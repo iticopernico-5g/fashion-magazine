@@ -9,7 +9,7 @@ class FrontHeader extends Component {
     protected function build(): void { ?>
         <header class="site-header">
             <div class="header-container">
-                <div class="logo">I T I</div>
+                <a href="<?= page('index.php') ?>" class="logo">Copernico News</a>
                 <div class="header-actions">
                     <?php if (is_user_authenticated()): ?>
                         <a href="<?= action('account.php', 'logout', 'index.php') ?>" class="login-header-btn">ESCI</a>

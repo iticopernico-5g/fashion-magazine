@@ -14,7 +14,7 @@ $page = new class extends Page {
         $articleService = new ArticleService();
         $recentArticles = $articleService->get_recent(5);
 
-        parent::__construct(new MainLayout("Home"), function () use ($recentArticles) { ?>
+        parent::__construct(new MainLayout("Copernico News"), function () use ($recentArticles) { ?>
 
             <section class="hero">
                 <h1 class="hero-title">
