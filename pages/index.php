@@ -21,7 +21,7 @@ $page = new class extends Page {
                     <a href="<?= page('index.php') ?>" class="title-black title-underline-yellow">Recenti</a>
                     <a href="<?= page('moda.php') ?>" class="title-gray">Moda</a>
                 </h1>
-                <p class="hero-subtitle">Le ultime notizie, i progetti e le iniziative dalla nostra scuola.</p>
+                <p class="hero-subtitle">Notizie, moda e cultura dall'ITI.</p>
             </section>
 
             <?= new ArticleGroup("Recenti", $recentArticles) ?>

@@ -35,7 +35,19 @@ $page = new class extends Page {
                     <a href="<?= page('index.php') ?>" class="title-gray">Recenti</a>
                     <a href="<?= page('moda.php') ?>" class="title-black title-underline-yellow">Moda</a>
                 </h1>
-                <p class="hero-subtitle">Stile, tendenze e gli outfit più creativi degli studenti.</p>
+                <?php
+                $subtitles = [
+                    'fashion'             => 'Stile, tendenze e couture.',
+                    'sport'               => 'Competizioni, risultati e spirito di squadra.',
+                    'social_activity'     => 'Iniziative, comunità e impatto sociale.',
+                    'charity'             => 'Solidarietà, raccolta fondi e buone cause.',
+                    'challenges'          => 'Sfide, competizioni e talenti a confronto.',
+                    'style_recommendations' => 'Consigli di stile per ogni occasione.',
+                    'events'              => 'Eventi, mostre e appuntamenti da non perdere.',
+                    'other'               => 'Storie, curiosità e tutto il resto.',
+                ];
+                ?>
+                <p class="hero-subtitle"><?= $subtitles[$selectedCategory->value] ?? 'Esplora i contenuti.' ?></p>
             </section>
 
             <section class="category-filters">

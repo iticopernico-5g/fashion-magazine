@@ -13,18 +13,19 @@ $page = new class extends Page {
         $articleService = new ArticleService();
         $article = $articleService->get_by_id($_GET['id']);
 
-        parent::__construct(new MainLayout("Articolo"), function () use ($article) { ?>
+        parent::__construct(new MainLayout($article ? $article->get_title() : "Articolo"), function () use ($article) { ?>
 
             <?php if (!$article): ?>
-
-                <div>Articolo non trovato</div>
-
+                <div style="text-align:center;padding:80px 20px">
+                    <h2>Articolo non trovato</h2>
+                    <a href="<?= page('index.php') ?>" style="color:#111;text-decoration:underline;font-size:.9rem;letter-spacing:1px;text-transform:uppercase">← Torna alla home</a>
+                </div>
             <?php else: ?>
-
                 <?= new ArticleDetails($article) ?>
-
             <?php endif; ?>
 
         <?php });
     }
 };
+
+echo $page->render();
