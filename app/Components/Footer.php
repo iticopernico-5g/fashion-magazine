@@ -12,11 +12,10 @@ class Footer extends Component
         <footer class="site-footer">
             <div class="footer-content">
 
-                <h2>Istituzione Scolastica ITI</h2>
-
-                <p>Via Roma, 123 - 00100 Roma</p>
-
-                <p>Email: contatti@edu.it</p>
+                <h2>ITI Copernico Carpeggiani</h2>
+                <p>Via Pontegradella, 1 — 44123 Ferrara (FE)</p>
+                <p>Tel: 0532 62484 &nbsp;|&nbsp; Email: feis01400v@istruzione.it</p>
+                <p style="margin-top:12px;font-size:12px;color:#555;letter-spacing:1px;text-transform:uppercase">© <?= date('Y') ?> ITI Copernico Carpeggiani — Ferrara</p>
             
             </div>
         </footer>

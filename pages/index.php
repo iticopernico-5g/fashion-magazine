@@ -19,7 +19,7 @@ $page = new class extends Page {
             <section class="hero">
                 <h1 class="hero-title">
                     <a href="<?= page('index.php') ?>" class="title-black title-underline-yellow">Recenti</a>
-                    <a href="<?= page('moda.php') ?>" class="title-gray">Moda</a>
+                    <a href="<?= page('moda.php') ?>" class="title-gray">Tendenze</a>
                 </h1>
                 <p class="hero-subtitle">Notizie, moda e cultura dall'ITI.</p>
             </section>

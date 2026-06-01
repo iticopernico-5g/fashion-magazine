@@ -28,12 +28,12 @@ $page = new class extends Page {
 
         $articles = $articleService->get_by_category($selectedCategory);
 
-        parent::__construct(new MainLayout("Moda"), function () use ($articles, $selectedCategory) { ?>
+        parent::__construct(new MainLayout("Tendenze"), function () use ($articles, $selectedCategory) { ?>
 
             <section class="hero">
                 <h1 class="hero-title">
                     <a href="<?= page('index.php') ?>" class="title-gray">Recenti</a>
-                    <a href="<?= page('moda.php') ?>" class="title-black title-underline-yellow">Moda</a>
+                    <a href="<?= page('moda.php') ?>" class="title-black title-underline-yellow">Tendenze</a>
                 </h1>
                 <?php
                 $subtitles = [
