@@ -94,10 +94,11 @@ if (loginForm) {
     }
 
     try {
-      const response = await fetch('actions/authentication.php?op=login', {
+      const response = await fetch('actions/account.php?path=login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
+          'X-Requested-With': 'XMLHttpRequest'
         },
         body: new URLSearchParams({
           email: email,
@@ -153,10 +154,11 @@ if (registerForm) {
     }
 
     try {
-      const response = await fetch('actions/authentication.php?op=register', {
+      const response = await fetch('actions/account.php?path=register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
+          'X-Requested-With': 'XMLHttpRequest'
         },
         body: new URLSearchParams({
           first_name: firstName,

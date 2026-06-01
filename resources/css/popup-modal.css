@@ -136,11 +136,11 @@
 }
 
 .popup-error .popup-btn {
-    background-color: #e74c3c;
+    background-color: #000000;
 }
 
 .popup-error .popup-btn:hover {
-    background-color: #c0392b;
+    background-color: #000000;
 }
 
 /* ===== AUTH FORM STYLE ===== */
@@ -179,7 +179,7 @@
 
 .error-message {
     display: block;
-    color: #e74c3c;
+    color: #000000;
     font-size: 12px;
     margin-top: 5px;
 }
