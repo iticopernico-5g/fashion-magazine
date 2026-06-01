@@ -1,36 +1,31 @@
-<?php 
+<?php
 
 namespace App\Components;
 
 use Camezilla\Components\Component;
-use App\Models\Article;
 
-class ArticleGroup extends Component {
+class ArticleGroup extends Component
+{
+    private array $articles;
+    private string $title;
 
-    private array $article;
-
-    public function __construct(array $article) {
+    public function __construct(string $title, array $articles)
+    {
         parent::__construct();
-        $this->article = $article;
+        $this->title = $title;
+        $this->articles = $articles;
     }
 
-    protected function build(): void { ?>
-        <div>
-            Gruppo Articoli
-            
-            <?php if (empty($this->article)): ?>
-
+    protected function build(): void
+    { ?>
+        <section class="news-grid">
+            <?php if (empty($this->articles)): ?>
                 <p>Nessun articolo trovato.</p>
-
             <?php else: ?>
-
-                <?php foreach ($this->article as $article): ?>
-
+                <?php foreach ($this->articles as $article): ?>
                     <?= new ArticleItem($article) ?>
-
                 <?php endforeach; ?>
-
             <?php endif; ?>
-        </div>
+        </section>
     <?php }
 }
