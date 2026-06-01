@@ -9,7 +9,6 @@ class FrontHeader extends Component {
     protected function build(): void { ?>
         <header class="site-header">
             <div class="header-container">
-                <button class="mobile-menu-btn" type="button">☰</button>
                 <div class="logo">I T I</div>
                 <div class="header-actions">
                     <?php if (is_user_authenticated()): ?>

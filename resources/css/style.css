@@ -189,6 +189,12 @@ h1, h2, h3, .logo {
     margin-bottom: 60px;
 }
 
+.news-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 .news-card {
     display: flex;
     flex-direction: column;
