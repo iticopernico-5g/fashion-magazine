@@ -240,6 +240,7 @@ function createFullContentContainer(content) {
 
   collapseBtn.addEventListener('click', function (e) {
     e.stopPropagation();
+    e.preventDefault();
 
     const card = this.closest('.news-card') || this.closest('.hero-article');
     if (!card) return;
@@ -264,6 +265,7 @@ document.addEventListener('click', function (e) {
   if (!readMoreBtn) return;
 
   e.preventDefault();
+  e.stopPropagation();
 
   const card = readMoreBtn.closest('.hero-article') || readMoreBtn.closest('.news-card');
   if (!card) return;
