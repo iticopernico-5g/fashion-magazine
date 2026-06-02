@@ -132,9 +132,10 @@ h1, h2, h3, .logo { font-family: 'Bodoni Moda', serif; }
 /* --- NEWS GRID --- */
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(2, 340px);
+    gap: 24px;
     margin-bottom: 60px;
+    justify-content: center;
 }
 
 /* --- CARD --- */
@@ -257,11 +258,7 @@ h1, h2, h3, .logo { font-family: 'Bodoni Moda', serif; }
 .collapse-btn:hover { background: #f0f0f0; }
 
 /* --- RESPONSIVE GRID --- */
-@media (max-width: 1024px) {
-    .news-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-@media (max-width: 700px) {
+@media (max-width: 740px) {
     .news-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-title { font-size: 32px; }
 }
