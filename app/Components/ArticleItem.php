@@ -24,7 +24,7 @@ class ArticleItem extends Component
                 </span>
 
                 <img
-                    src="<?= resource('images/albero.jpg') ?>"
+                    src="<?= $this->article->get_image() ? get_absolute_url('api/image.php?id=' . $this->article->get_id()) : resource('images/albero.jpg') ?>"
                     alt="<?= htmlspecialchars($this->article->get_title()) ?>"
                     class="card-image">
             </div>

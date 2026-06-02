@@ -11,19 +11,21 @@ class Article {
     private ?string $summary;
     private ?Category $category;
     private ?string $link;
+    private ?string $image;
     private ?string $text;
     private ?string $author;
     private ?DateTime $date;
     private ?Status $status;
     
 
-    public function __construct(?int $id, ?string $title, ?string $description, ?string $summary, ?Category $category, ?string $link, ?string $text, ?string $author, ?DateTime $date, ?Status $status) {
+    public function __construct(?int $id, ?string $title, ?string $description, ?string $summary, ?Category $category, ?string $link, ?string $image, ?string $text, ?string $author, ?DateTime $date, ?Status $status) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
-        $this->summary = $summary; 
+        $this->summary = $summary;
         $this->category = $category;
         $this->link = $link;
+        $this->image = $image;
         $this->text = $text;
         $this->author = $author;
         $this->date = $date;
@@ -53,6 +55,10 @@ class Article {
 
     public function get_link(): ?string {
         return $this->link;
+    }
+
+    public function get_image(): ?string {
+        return $this->image;
     }
 
     public function get_text(): ?string {

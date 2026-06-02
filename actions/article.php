@@ -14,6 +14,11 @@ $articleService = new ArticleService();
 $dispatcher->post('create', function($params) use ($articleService) {
     require_user_authentication();
 
+    $image = null;
+    if (!empty($_FILES['image']['tmp_name']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $image = file_get_contents($_FILES['image']['tmp_name']);
+    }
+
     $article = new Article(
         null,
         $params['title'] ?: null,
@@ -21,6 +26,7 @@ $dispatcher->post('create', function($params) use ($articleService) {
         $params['summary'] ?: null,
         Category::from($params['category']),
         $params['link'] ?: null,
+        $image,
         $params['text'] ?: null,
         $params['author'] ?: null,
         new DateTime($params['date']),
@@ -38,6 +44,11 @@ $dispatcher->post('create', function($params) use ($articleService) {
 $dispatcher->post('update', function($params) use ($articleService) {
     require_user_authentication();
 
+    $image = null;
+    if (!empty($_FILES['image']['tmp_name']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $image = file_get_contents($_FILES['image']['tmp_name']);
+    }
+
     $article = new Article(
         $params['id'],
         $params['title'] ?: null,
@@ -45,6 +56,7 @@ $dispatcher->post('update', function($params) use ($articleService) {
         $params['summary'] ?: null,
         Category::from($params['category']),
         $params['link'] ?: null,
+        $image,
         $params['text'] ?: null,
         $params['author'] ?: null,
         new DateTime($params['date']),

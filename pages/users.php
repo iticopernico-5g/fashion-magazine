@@ -147,7 +147,7 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
         <div id="modal-nuovo" class="art-modal-overlay" style="display:none">
             <div class="modal-box">
                 <h2>Nuovo Articolo</h2>
-                <form method="POST" action="<?= action('article.php', 'create', 'users.php') ?>">
+                <form method="POST" action="<?= action('article.php', 'create', 'users.php') ?>" enctype="multipart/form-data">
                     <?= $this->articleFields() ?>
                     <div class="modal-actions">
                         <button type="submit" class="btn-primary">Salva</button>
@@ -196,7 +196,7 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
         <div id="modal-modifica" class="art-modal-overlay" style="display:none">
             <div class="modal-box">
                 <h2>Modifica Articolo</h2>
-                <form method="POST" action="<?= action('article.php', 'update', 'users.php') ?>">
+                <form method="POST" action="<?= action('article.php', 'update', 'users.php') ?>" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="edit-id">
                     <?= $this->articleFields('edit-') ?>
                     <div class="modal-actions">
@@ -354,6 +354,10 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
         <div class="form-group">
             <label>Link</label>
             <input type="url" id="<?= $prefix ?>link" name="link" maxlength="2048">
+        </div>
+        <div class="form-group">
+            <label>Immagine <?= $prefix ? '(lascia vuoto per mantenere quella attuale)' : '' ?></label>
+            <input type="file" id="<?= $prefix ?>image" name="image" accept="image/*">
         </div>
         <?php return ob_get_clean();
     }

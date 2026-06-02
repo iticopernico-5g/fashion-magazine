@@ -32,6 +32,7 @@ class ArticleRepository extends Repository{
                     $row['summary'],    
                     Category::from($row['category']),
                     $row['link'],
+                    $row['image'] ?? null,
                     $row['text'],
                     $row['author'],
                     new DateTime($row['date']),
@@ -63,6 +64,7 @@ class ArticleRepository extends Repository{
                     $row['summary'],
                     Category::from($row['category']),
                     $row['link'],
+                    $row['image'] ?? null,
                     $row['text'],
                     $row['author'],
                     new DateTime($row['date']),
@@ -102,6 +104,7 @@ class ArticleRepository extends Repository{
                     $row['summary'],
                     Category::from($row['category']),
                     $row['link'],
+                    $row['image'] ?? null,
                     $row['text'],
                     $row['author'],
                     new DateTime($row['date']),
@@ -140,6 +143,7 @@ class ArticleRepository extends Repository{
                     $row['summary'],
                     Category::from($row['category']),
                     $row['link'],
+                    $row['image'] ?? null,
                     $row['text'],
                     $row['author'],
                     new DateTime($row['date']),
@@ -171,6 +175,7 @@ class ArticleRepository extends Repository{
                     $row['summary'],
                     Category::from($row['category']),
                     $row['link'],
+                    $row['image'] ?? null,
                     $row['text'],
                     $row['author'],
                     new DateTime($row['date']),
@@ -187,8 +192,8 @@ class ArticleRepository extends Repository{
     public function create(Article $article): void {
         try {
             $query = $this->database->prepare(
-                "INSERT INTO articles (title, description, summary, category, link, text, status, author, date)
-                VALUES (:title, :description, :summary, :category, :link, :text, :status, :author, :date)"
+                "INSERT INTO articles (title, description, summary, category, link, image, text, status, author, date)
+                VALUES (:title, :description, :summary, :category, :link, :image, :text, :status, :author, :date)"
             );
             $query->execute([
                 'title' => $article->get_title(),
@@ -196,6 +201,7 @@ class ArticleRepository extends Repository{
                 'summary' => $article->get_summary(),
                 'category' => $article->get_category()->value,
                 'link' => $article->get_link(),
+                'image' => $article->get_image(),
                 'text' => $article->get_text(),
                 'status' => $article->get_status()->value,
                 'author' => $article->get_author(),
@@ -209,11 +215,11 @@ class ArticleRepository extends Repository{
     public function update(Article $article): void {
         try {
             $query = $this->database->prepare(
-                "UPDATE articles
-                SET title = :title, description = :description, summary = :summary, category = :category, link = :link, text = :text, status = :status, author = :author, date = :date
-                WHERE id = :id"
+                $article->get_image() !== null
+                    ? "UPDATE articles SET title=:title, description=:description, summary=:summary, category=:category, link=:link, image=:image, text=:text, status=:status, author=:author, date=:date WHERE id=:id"
+                    : "UPDATE articles SET title=:title, description=:description, summary=:summary, category=:category, link=:link, text=:text, status=:status, author=:author, date=:date WHERE id=:id"
             );
-            $query->execute([
+            $params = [
                 'id' => $article->get_id(),
                 'title' => $article->get_title(),
                 'description' => $article->get_description(),
@@ -224,7 +230,11 @@ class ArticleRepository extends Repository{
                 'status' => $article->get_status()->value,
                 'author' => $article->get_author(),
                 'date' => $article->get_date()->format('Y-m-d')
-            ]);
+            ];
+            if ($article->get_image() !== null) {
+                $params['image'] = $article->get_image();
+            }
+            $query->execute($params);
         } catch (Exception $e) {
             throw new RepositoryErrorException("Error updating article: " . $e->getMessage());
         }

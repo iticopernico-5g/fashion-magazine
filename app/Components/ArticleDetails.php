@@ -46,7 +46,7 @@ class ArticleDetails extends Component {
 
             <!-- IMMAGINE HERO -->
             <figure class="vogue-hero-image">
-                <img src="<?= resource('images/albero.jpg') ?>" alt="<?= htmlspecialchars($this->article->get_title()) ?>">
+                <img src="<?= $this->article->get_image() ? get_absolute_url('api/image.php?id=' . $this->article->get_id()) : resource('images/albero.jpg') ?>" alt="<?= htmlspecialchars($this->article->get_title()) ?>">
             </figure>
 
             <!-- CORPO TESTO -->
