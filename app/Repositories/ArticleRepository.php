@@ -195,18 +195,17 @@ class ArticleRepository extends Repository{
                 "INSERT INTO articles (title, description, summary, category, link, image, text, status, author, date)
                 VALUES (:title, :description, :summary, :category, :link, :image, :text, :status, :author, :date)"
             );
-            $query->execute([
-                'title' => $article->get_title(),
-                'description' => $article->get_description(),
-                'summary' => $article->get_summary(),
-                'category' => $article->get_category()->value,
-                'link' => $article->get_link(),
-                'image' => $article->get_image(),
-                'text' => $article->get_text(),
-                'status' => $article->get_status()->value,
-                'author' => $article->get_author(),
-                'date' => $article->get_date()->format('Y-m-d'),
-            ]);
+            $query->bindValue(':title',       $article->get_title());
+            $query->bindValue(':description', $article->get_description());
+            $query->bindValue(':summary',     $article->get_summary());
+            $query->bindValue(':category',    $article->get_category()->value);
+            $query->bindValue(':link',        $article->get_link());
+            $query->bindValue(':image',       $article->get_image(), $article->get_image() !== null ? \PDO::PARAM_LOB : \PDO::PARAM_NULL);
+            $query->bindValue(':text',        $article->get_text());
+            $query->bindValue(':status',      $article->get_status()->value);
+            $query->bindValue(':author',      $article->get_author());
+            $query->bindValue(':date',        $article->get_date()->format('Y-m-d'));
+            $query->execute();
         } catch (Exception $e) {
             throw new RepositoryErrorException("Error creating article: " . $e->getMessage());
         }
@@ -214,27 +213,25 @@ class ArticleRepository extends Repository{
 
     public function update(Article $article): void {
         try {
-            $query = $this->database->prepare(
-                $article->get_image() !== null
-                    ? "UPDATE articles SET title=:title, description=:description, summary=:summary, category=:category, link=:link, image=:image, text=:text, status=:status, author=:author, date=:date WHERE id=:id"
-                    : "UPDATE articles SET title=:title, description=:description, summary=:summary, category=:category, link=:link, text=:text, status=:status, author=:author, date=:date WHERE id=:id"
-            );
-            $params = [
-                'id' => $article->get_id(),
-                'title' => $article->get_title(),
-                'description' => $article->get_description(),
-                'summary' => $article->get_summary(),
-                'category' => $article->get_category()->value,
-                'link' => $article->get_link(),
-                'text' => $article->get_text(),
-                'status' => $article->get_status()->value,
-                'author' => $article->get_author(),
-                'date' => $article->get_date()->format('Y-m-d')
-            ];
-            if ($article->get_image() !== null) {
-                $params['image'] = $article->get_image();
+            $hasImage = $article->get_image() !== null;
+            $sql = $hasImage
+                ? "UPDATE articles SET title=:title, description=:description, summary=:summary, category=:category, link=:link, image=:image, text=:text, status=:status, author=:author, date=:date WHERE id=:id"
+                : "UPDATE articles SET title=:title, description=:description, summary=:summary, category=:category, link=:link, text=:text, status=:status, author=:author, date=:date WHERE id=:id";
+            $query = $this->database->prepare($sql);
+            $query->bindValue(':id',          $article->get_id(),                  \PDO::PARAM_INT);
+            $query->bindValue(':title',       $article->get_title());
+            $query->bindValue(':description', $article->get_description());
+            $query->bindValue(':summary',     $article->get_summary());
+            $query->bindValue(':category',    $article->get_category()->value);
+            $query->bindValue(':link',        $article->get_link());
+            $query->bindValue(':text',        $article->get_text());
+            $query->bindValue(':status',      $article->get_status()->value);
+            $query->bindValue(':author',      $article->get_author());
+            $query->bindValue(':date',        $article->get_date()->format('Y-m-d'));
+            if ($hasImage) {
+                $query->bindValue(':image', $article->get_image(), \PDO::PARAM_LOB);
             }
-            $query->execute($params);
+            $query->execute();
         } catch (Exception $e) {
             throw new RepositoryErrorException("Error updating article: " . $e->getMessage());
         }
