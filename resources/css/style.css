@@ -184,12 +184,15 @@ h1, h2, h3, .logo {
 /* --- TAG --- */
 .category-tag {
     position: absolute;
-    top: 15px;
-    left: 15px;
-    background: white;
-    font-size: 10px;
-    padding: 4px 10px;
-    letter-spacing: 1px;
+    top: 12px;
+    left: 12px;
+    background: #fff;
+    font-size: 9px;
+    padding: 3px 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    z-index: 1;
 }
 
 /* --- BUTTON --- */
@@ -203,11 +206,11 @@ h1, h2, h3, .logo {
     letter-spacing: 1px;
 }
 
-/* --- NEWS GRID (VERTICALE!) --- */
+/* --- NEWS GRID --- */
 .news-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 32px;
     margin-bottom: 60px;
 }
 
@@ -215,38 +218,67 @@ h1, h2, h3, .logo {
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 25px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+    background: #fff;
+}
+
+.news-card:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
 }
 
 .card-image-wrapper {
-    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+    height: 200px;
 }
 
 .card-image {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.news-card:hover .card-image {
+    transform: scale(1.04);
 }
 
 .card-content {
-    padding: 0 5px;
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-date {
-    font-size: 12px;
-    color: #999;
-    margin-bottom: 5px;
+    font-size: 11px;
+    color: #aaa;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
 }
 
 .card-title {
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 17px;
+    line-height: 1.3;
+    margin-bottom: 8px;
 }
 
 .card-excerpt {
-    font-size: 15px;
-    color: #555;
-    margin-bottom: 10px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* --- FOOTER --- */
@@ -350,10 +382,10 @@ h1, h2, h3, .logo {
 
 .vogue-hero-image img {
     width: 100%;
-    height: 500px;
+    height: 520px;
     object-fit: cover;
+    object-position: center top;
     display: block;
-    filter: grayscale(8%);
 }
 
 .vogue-body {

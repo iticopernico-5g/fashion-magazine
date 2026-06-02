@@ -4,7 +4,6 @@ require_once __DIR__ . '/../camezilla/camezilla.php';
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Status;
-use DateTime;
 use App\Services\ArticleService;
 use Camezilla\Dispatchers\Dispatcher;
 
@@ -73,7 +72,7 @@ $dispatcher->post('update', function($params) use ($articleService) {
 
 $dispatcher->post('delete', function($params) use ($articleService) {
     require_user_authentication();
-    $article = new Article($params['id'], null, null, null, null, null, null, null, null, null);
+    $article = new Article($params['id'], null, null, null, null, null, null, null, null, null, null);
 
     try {
         $articleService->delete($article);
