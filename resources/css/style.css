@@ -132,8 +132,8 @@ h1, h2, h3, .logo { font-family: 'Bodoni Moda', serif; }
 /* --- NEWS GRID --- */
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(2, 340px);
-    gap: 24px;
+    grid-template-columns: repeat(2, 460px);
+    gap: 48px;
     margin-bottom: 60px;
     justify-content: center;
 }
