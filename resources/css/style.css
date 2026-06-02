@@ -158,7 +158,7 @@ h1, h2, h3, .logo { font-family: 'Bodoni Moda', serif; }
 .card-image-wrapper {
     position: relative;
     width: 100%;
-    height: 140px;
+    height: 280px;
     overflow: hidden;
     flex-shrink: 0;
     background: #f0f0f0;
@@ -181,7 +181,7 @@ h1, h2, h3, .logo { font-family: 'Bodoni Moda', serif; }
 }
 
 .card-content {
-    padding: 10px 12px 14px;
+    padding: 18px 20px 22px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -197,14 +197,14 @@ h1, h2, h3, .logo { font-family: 'Bodoni Moda', serif; }
 
 .card-title {
     font-family: 'Bodoni Moda', serif;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.3;
     margin-bottom: 5px;
     color: #111;
 }
 
 .card-excerpt {
-    font-size: 12px;
+    font-size: 14px;
     color: #666;
     line-height: 1.5;
     flex: 1;
