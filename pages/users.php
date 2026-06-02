@@ -72,7 +72,9 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
                 <div class="tab-header">
                     <h2>Gestione Utenti</h2>
                 </div>
-                <?= new UserGroup($this->users) ?>
+                <div class="table-scroll">
+                    <?= new UserGroup($this->users) ?>
+                </div>
             </div>
             <?php endif; ?>
 
@@ -85,6 +87,7 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
                     </button>
                 </div>
 
+                <div class="table-scroll">
                 <table class="articles-table">
                     <thead>
                         <tr>
@@ -139,6 +142,7 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
                         <?php endif; ?>
                     </tbody>
                 </table>
+                </div><!-- /table-scroll -->
             </div>
 
         </div>
@@ -304,6 +308,27 @@ $page = new class($isAdmin, $users, $articles, $successMsg, $errorMsg) extends P
         .form-group label { font-size: .85rem; font-weight: 600; color: #374151; }
         .form-group input, .form-group select, .form-group textarea { border: 1px solid #d1d5db; border-radius: 6px; padding: .5rem .75rem; font-size: .9rem; width: 100%; box-sizing: border-box; }
         .form-group textarea { resize: vertical; min-height: 80px; }
+
+        /* --- SCROLL TABELLA --- */
+        .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .table-scroll .articles-table { min-width: 600px; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .pannello { padding: 0 .5rem; }
+
+            .pannello-tab-btn { padding: 10px 16px; font-size: 13px; }
+
+            .tab-header { flex-direction: column; align-items: flex-start; gap: .6rem; }
+
+            .articles-table th, .articles-table td { padding: .5rem .6rem; font-size: .8rem; }
+
+            .btn-primary, .btn-secondary, .btn-edit, .btn-delete { font-size: .75rem; padding: .3rem .6rem; }
+
+            .actions-cell { flex-direction: column; gap: .3rem; }
+
+            .art-modal-overlay .modal-box { padding: 1.2rem; margin: .5rem; }
+        }
         </style>
     <?php }
 
