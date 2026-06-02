@@ -233,17 +233,21 @@ h1, h2, h3, .logo {
     position: relative;
     overflow: hidden;
     height: 140px;
+    flex-shrink: 0;
+    background: #f0f0f0;
 }
 
+.card-image-wrapper img,
 .card-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+    display: block !important;
     transition: transform 0.4s ease;
 }
 
+.news-card:hover .card-image-wrapper img,
 .news-card:hover .card-image {
     transform: scale(1.04);
 }
@@ -391,7 +395,7 @@ h1, h2, h3, .logo {
     width: 100%;
     height: 520px;
     object-fit: cover;
-    object-position: center top;
+    object-position: top center;
     display: block;
 }
 
